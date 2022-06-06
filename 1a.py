@@ -1,10 +1,10 @@
 import random
 import cv2
-#import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 
 # ------------------------------------------------------------------------------------ #
 # ---------------------------------- CAESAR ------------------------------------------ #
-#import numpy as np
+# import numpy as np
 from nltk import entropy
 import random
 from scipy.stats import entropy
@@ -12,12 +12,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-
 def shift_right_byte(byte, offset):
     if (byte + offset > 255):
-        return offset - (255-byte)
+        return offset - (255 - byte)
     else:
         return byte + offset
+
 
 def shift_left_byte(byte, offset):
     if (byte - offset < 0):
@@ -25,17 +25,20 @@ def shift_left_byte(byte, offset):
     else:
         return byte - offset
 
+
 def shift_right(char, offset):
     if (ord(char) + offset > 255):
-        return chr(offset - (255-ord(char)))
+        return chr(offset - (255 - ord(char)))
     else:
         return chr(ord(char) + offset)
+
 
 def shift_left(char, offset):
     if (ord(char) - offset < 0):
         return chr(255 - (offset - ord(char)))
     else:
         return chr(ord(char) - offset)
+
 
 def caeser(input, output, offset, chipher):
     fin = open(input, "r")
@@ -45,8 +48,8 @@ def caeser(input, output, offset, chipher):
             fout.write(shift_right(c, offset))
         else:
             fout.write(shift_left(c, offset))
-    fin.close
-    fout.close
+    fin.close()
+    fout.close()
 
 
 # ------------------------------------------------------------------------------------ #
@@ -61,11 +64,12 @@ def vernam_encipher(input, output):
     for byte in fin.read():
         rand_num = random.randint(0, 255)
         key.append(rand_num)
-        bytes.append(byte^rand_num)
+        bytes.append(byte ^ rand_num)
     fout.write(bytearray(bytes))
-    fin.close
-    fout.close
+    fin.close()
+    fout.close()
     return key
+
 
 def vernam_decipher(input, output, key):
     fin = open(input, "rb")
@@ -73,11 +77,11 @@ def vernam_decipher(input, output, key):
     bytes = []
     idx = 0
     for byte in fin.read():
-        bytes.append(byte^key[idx])
+        bytes.append(byte ^ key[idx])
         idx += 1
     fout.write(bytearray(bytes))
-    fin.close
-    fout.close
+    fin.close()
+    fout.close()
 
 
 # ------------------------------------------------------------------------------------------ #
@@ -85,15 +89,16 @@ def vernam_decipher(input, output, key):
 
 KEY = []
 
+
 def image_encipher(input, output, x_left, y_up, width, height):
     img = cv2.imread(input, 0)
     for x in range(height):
         for y in range(width):
-            img[x_left+x][y_up+y] = random.randint(0, 255)
-    cv2.imshow("grayscale_img", img)       
+            img[x_left + x][y_up + y] = random.randint(0, 255)
+    cv2.imshow("grayscale_img", img)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
-    
+
 
 # Reads a file and puts all words in an array
 def file_read(f):
@@ -129,15 +134,17 @@ def create_histogram_for_file_chars(f, bins):
     array = get_file_characters(f)
     plt.hist(array, bins=bins)
     plt.show()
+
+
 # -------------------------------------------------------------------------------- #
 # ----------------------------------MAIN------------------------------------------ #
 
 def main():
-    #caeser("CD_TestFiles/a.txt", "Output/a_ccipher.txt", 5, True)
-    #caeser("Output/a_ccipher.txt", "Output/a_cdecipher.txt", 5, False)
-    #key = vernam_encipher("CD_TestFiles/a.txt", "Output/a_vcipher.txt")
-    #vernam_decipher("Output/a_vcipher.txt", "Output/a_vdecipher.txt", key)
-    #image_encipher("CD_TestFiles/lena.bmp", "", 34, 58, 150, 150)
+    # caeser("CD_TestFiles/a.txt", "Output/a_ccipher.txt", 5, True)
+    # caeser("Output/a_ccipher.txt", "Output/a_cdecipher.txt", 5, False)
+    # key = vernam_encipher("CD_TestFiles/a.txt", "Output/a_vcipher.txt")
+    # vernam_decipher("Output/a_vcipher.txt", "Output/a_vdecipher.txt", key)
+    # image_encipher("CD_TestFiles/lena.bmp", "", 34, 58, 150, 150)
     # --------------------------- i ------------------------- #
     first_file_entropy = get_entropy("CD_TestFiles/a.txt")
     print("FileA entropy: ", first_file_entropy)
@@ -222,6 +229,7 @@ def main():
     # -----------------------------------------------------------------------------------------------------------------------
 
     # -------------------------- iv ------------------------ #
+
 
 if __name__ == "__main__":
     main()
