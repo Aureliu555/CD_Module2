@@ -1,7 +1,21 @@
 import random
+import cv2
+import matplotlib.pyplot as plt
 
 # ------------------------------------------------------------------------------------ #
 # ---------------------------------- CAESAR ------------------------------------------ #
+
+def shift_right_byte(byte, offset):
+    if (byte + offset > 255):
+        return offset - (255-byte)
+    else:
+        return byte + offset
+
+def shift_left_byte(byte, offset):
+    if (byte - offset < 0):
+        return 255 - (offset - byte)
+    else:
+        return byte - offset
 
 def shift_right(char, offset):
     if (ord(char) + offset > 255):
@@ -57,14 +71,31 @@ def vernam_decipher(input, output, key):
     fin.close
     fout.close
 
+
+# ------------------------------------------------------------------------------------------ #
+# ---------------------------------- IMAGE CIPHER ------------------------------------------ #
+
+KEY = []
+
+def image_encipher(input, output, x_left, y_up, width, height):
+    img = cv2.imread(input, 0)
+    for x in range(height):
+        for y in range(width):
+            img[x_left+x][y_up+y] = random.randint(0, 255)
+    cv2.imshow("grayscale_img", img)       
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+    
+
 # -------------------------------------------------------------------------------- #
 # ----------------------------------MAIN------------------------------------------ #
 
 def main():
     #caeser("CD_TestFiles/a.txt", "Output/a_ccipher.txt", 5, True)
     #caeser("Output/a_ccipher.txt", "Output/a_cdecipher.txt", 5, False)
-    key = vernam_encipher("CD_TestFiles/a.txt", "Output/a_vcipher.txt")
-    vernam_decipher("Output/a_vcipher.txt", "Output/a_vdecipher.txt", key)
+    #key = vernam_encipher("CD_TestFiles/a.txt", "Output/a_vcipher.txt")
+    #vernam_decipher("Output/a_vcipher.txt", "Output/a_vdecipher.txt", key)
+    image_encipher("CD_TestFiles/lena.bmp", "", 34, 58, 150, 150)
 
 if __name__ == "__main__":
     main()
