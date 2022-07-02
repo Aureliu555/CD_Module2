@@ -1,4 +1,4 @@
-import matplotlib.pyplot as plt
+import matplotlib as plt
 import numpy as np
 
 
@@ -25,9 +25,24 @@ def NRZU_Coder(binary_sequence, t, max, min):
                 emitter.append(min)
                 n -= 1
 
-    plt.title("Unipolar NRZ")
-    plt.plot(emitter)
-    plt.show()
+    return emitter
+
+
+def PSK_Modulator(binary_sequence, t, max, min):
+    length = len(binary_sequence)
+
+    emitter = [] * (length * t)
+    for bit in binary_sequence:
+        if bit == 1:
+            n = t
+            while n > 0:
+                emitter.append(max)
+                n -= 1
+        else:
+            n = t
+            while n > 0:
+                emitter.append(min)
+                n -= 1
 
     return emitter
 
@@ -67,17 +82,43 @@ def main():
     #         unipolarNRZ.append(x)
     # decoded = NRZU_Decoder(coded, 10, 5, 0)
     # print(decoded)
-    rng = np.arange(50)
-    rnd = np.random.randint(0, 10, size=(3, rng.size))
-    yrs = 1950 + rng
+    # rng = np.arange(50)
+    # rnd = np.random.randint(0, 10, size=(3, rng.size))
+    # yrs = 1950 + rng
+    #
+    # fig, ax = plt.subplots(figsize=(5, 3))
+    # ax.stackplot(yrs, rng + rnd, labels=['Eastasia', 'Eurasia', 'Oceania'])
+    # ax.set_title('Combined debt growth over time')
+    # ax.legend(loc='upper left')
+    # ax.set_ylabel('Total debt')
+    # ax.set_xlim(xmin=yrs[0], xmax=yrs[-1])
+    # fig.tight_layout()
 
-    fig, ax = plt.subplots(figsize=(5, 3))
-    ax.stackplot(yrs, rng + rnd, labels=['Eastasia', 'Eurasia', 'Oceania'])
-    ax.set_title('Combined debt growth over time')
-    ax.legend(loc='upper left')
-    ax.set_ylabel('Total debt')
-    ax.set_xlim(xmin=yrs[0], xmax=yrs[-1])
-    fig.tight_layout()
+    # plt.title("Unipolar NRZ")
+    # # ax = plt.plot(coded)
+    # ax = plt.gca()
+    # ax.set_xlim(xmin=0, xmax=len(coded))
+    # ax.set_ylim()
+    #
+    # # fig.tight_layout()
+    # ax.plot(coded)
+    # plt.show()
+    seq = [1, 0, 0, 1]
+    t = np.arange(0, int(len(seq)), 0.01)
+    j = 1
+    p = []
+    for i in range(0, 400, 1):
+        if t[i] < j:
+            p.append(seq[j - 1])
+        else:
+            p.append(seq[j])
+            j = j + 1
+
+    plt.plot(t, seq)
+    plt.xlabel("Time in seconds")
+    plt.ylabel("Amplitude in volts")
+    plt.title("NRZ Unipolar")
+    plt.show()
 
 
 if __name__ == '__main__':
