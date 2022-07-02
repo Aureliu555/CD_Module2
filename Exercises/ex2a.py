@@ -93,18 +93,14 @@ def crc_n(n):
 
 
 def crc_file_compute(input, output, n_bits):
-    crc = crc_n(n_bits)
-
-    crc_calculator = CrcCalculator(crc)
-
     file_input = open(input, "rb")
     file_out = open(output, "wb")
     data = []
 
-    for char in file_input.read():
-        data.append(char)
+    for b in file_input.read():
+        data.append(b)
 
-    checksum = crc_calculator.calculate_checksum(data)
+    checksum = CrcCalculator(crc_n(n_bits)).calculate_checksum(data)
 
     checksum_bytes = checksum.to_bytes(int(n_bits / 8), "big")
 
@@ -116,23 +112,26 @@ def crc_file_compute(input, output, n_bits):
 
 
 def crc_file_check(input, n_bits):
-
     file = open(input, "rb")
-
-    crc_code = []
-    # Inserts on crc_code the first crc bytes characters in file.
+    data = []
     i = 0
-    while i < int(n_bits / 8):
-        crc_code.append((file.read(1)))
-        i += 1
+    expected_checksum = 0
 
-    expected = 0
-
+    # Inserts on crc_code the first crc bytes characters in file.
     # Calculate the expected checksum value.
-    for i in crc_code:
-        expected = (expected << 8) + int.from_bytes(i, "big")
+    for b in file.read():
+        if i < int(n_bits / 8):
+            expected_checksum = (expected_checksum << 8) + int.from_bytes(byte(b), "big")
+            i += 1
+        else:
+            data.append(b)
 
-    print(expected)
+    actual_checksum = CrcCalculator(crc_n(n_bits)).calculate_checksum(data)
+
+    if actual_checksum == expected_checksum:
+        print("No error has been detected.")
+    else:
+        print("Error detected.")
 
 
 def main():
