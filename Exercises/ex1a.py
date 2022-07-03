@@ -1,5 +1,4 @@
 import random
-import cv2
 # import matplotlib.pyplot as plt
 
 # ------------------------------------------------------------------------------------ #
@@ -7,7 +6,6 @@ import cv2
 # import numpy as np
 from nltk import entropy
 import random
-from scipy.stats import entropy
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -83,5 +81,3 @@ def vernam_decipher(input, output, key):
     fin.close()
     fout.close()
 
-
-# ------------------------------------------------------------------------------------------ #

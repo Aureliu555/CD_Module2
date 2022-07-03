@@ -1,5 +1,5 @@
 import random
-# import cv2
+
 from collections import Counter
 
 import matplotlib.pyplot as plt
@@ -65,17 +65,17 @@ def main():
     # vernam_decipher("Output/a_vcipher.txt", "Output/a_vdecipher.txt", key)
     # image_encipher("CD_TestFiles/lena.bmp", "", 34, 58, 150, 150)
     # --------------------------- i ------------------------- #
-    first_file_entropy = get_entropy("../CD_TestFiles/a.txt")
+    first_file_entropy = get_entropy("./CD_TestFiles/a.txt")
     print("FileA entropy: ", first_file_entropy)
 
-    second_file_entropy = get_entropy("../CD_TestFiles/alice29.txt")
+    second_file_entropy = get_entropy("./CD_TestFiles/alice29.txt")
     print("FileB entropy: ", second_file_entropy)
 
     # Histogram for the first text file
-    create_histogram_for_file_chars("CD_TestFiles/a.txt", 10)
+    create_histogram_for_file_chars("./CD_TestFiles/a.txt", 10)
 
     # Histogram for the second text file
-    create_histogram_for_file_chars("CD_TestFiles/alice29.txt", 10)
+    create_histogram_for_file_chars("./CD_TestFiles/alice29.txt", 10)
 
     # -----------------------------------------------------------------------------------------------------------------------
     # -------------------------- ii ------------------------ #
