@@ -54,9 +54,7 @@ def crc_file_check(input, n_bits):
     actual_checksum = CrcCalculator(crc_n(n_bits)).calculate_checksum(data)
 
     if actual_checksum == expected_checksum:
-        print("No error has been detected.")
         return True
     else:
-        print("Error detected.")
         return False
 

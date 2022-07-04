@@ -21,11 +21,11 @@ def sinusoidal_pulse_presentation(bits, tb_in_millis, samples_per_bit, f, a_max,
     print("PSK =", decoded_data)
     
 def main():
-    bits = [1, 0, 1, 1, 1, 0, 1, 0, 1, 0]
+    bits = [1, 0, 1, 1, 0, 0 ,0, 1]
     #rect_pulse_presentation(bits, 75, 5, 1.0, 0.0)
     #sinusoidal_pulse_presentation(bits, 1, 75, 2, 5, 1.0, 0.0)
-    rect_pulse_presentation(bits, 75, 5, 1.0, 1.1)
-    sinusoidal_pulse_presentation(bits, 1, 75, 2, 5, 1.0, 0.9)
+    rect_pulse_presentation(bits, 75, 5, 1.0, 0.0)
+    sinusoidal_pulse_presentation(bits, 1, 75, 2, 2, 1.0, 0.0)
 
 if __name__ == '__main__':
     main()

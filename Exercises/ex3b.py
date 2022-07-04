@@ -1,4 +1,5 @@
 from ex3a1 import *
+from ex3a2 import *
 
 def calculate_BER(original_bits_arr, decoded_bits_arr):
     total_bits = len(original_bits_arr)
@@ -26,9 +27,13 @@ def test_scd_sin_pulse(bits, tb_in_millis, samples_per_bit, f, a_max, alpha, max
 
 def main():
     bits = [1, 0, 1, 1, 0 ,0 , 0, 1]
-    print("BER_NRZU with (alpha = 1) && (noise in -0.8..0.8) ->", test_scd_rect_pulse(bits, 8, 5, 1.0, 0.8))
+    rect_pulse_presentation(bits, 100, 5, 1.0, 0.8)
+    print("BER_NRZU with (alpha = 1) && (noise in -0.8..0.8) ->", test_scd_rect_pulse(bits, 100, 5, 1.0, 0.8))
+    sinusoidal_pulse_presentation(bits, 1, 100, 2, 2, 1.0, 0.8)
     print("BER_PSK with (alpha = 1) && (noise in -0.8..0.8) ->", test_scd_sin_pulse(bits, 1, 100, 2, 2, 1.0, 0.8), "\n")
-    print("BER_NRZU with (alpha < 1) && (noise = 0) ->", test_scd_rect_pulse(bits, 10, 5, 0.5, 0.0))
+    rect_pulse_presentation(bits, 100, 5, 0.5, 0.0)
+    print("BER_NRZU with (alpha < 1) && (noise = 0) ->", test_scd_rect_pulse(bits, 1, 100, 0.5, 0.0))
+    sinusoidal_pulse_presentation(bits, 1, 100, 2, 2, 0.5, 0.0)
     print("BER_PSK with (alpha < 1) && (noise = 0) ->", test_scd_sin_pulse(bits, 1, 100, 2, 2, 0.5, 0.0))
 
 if __name__ == '__main__':
