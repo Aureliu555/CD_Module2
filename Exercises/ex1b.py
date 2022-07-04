@@ -4,7 +4,7 @@ from collections import Counter
 
 import matplotlib.pyplot as plt
 import numpy as np
-from nltk import entropy
+
 
 from ex1a import *
 # Reads a file and puts all words in an array
@@ -23,7 +23,8 @@ def file_read(f):
 def get_entropy(file):
     array = file_read(file)
     value, counts = np.unique(array, return_counts=True)
-    e = entropy(counts, base=None)
+    e = entropy(counts)
+    print(e)
     return e
 
 
@@ -60,22 +61,22 @@ def create_histogram(freq):
 
 def main():
     # caeser("CD_TestFiles/a.txt", "Output/a_ccipher.txt", 5, True)
-    # caeser("Output/a_ccipher.txt", "Output/a_cdecipher.txt", 5, False)
+    # caeser("Output/a_ccipher.txt", "Output/a_decipher.txt", 5, False)
     # key = vernam_encipher("CD_TestFiles/a.txt", "Output/a_vcipher.txt")
     # vernam_decipher("Output/a_vcipher.txt", "Output/a_vdecipher.txt", key)
     # image_encipher("CD_TestFiles/lena.bmp", "", 34, 58, 150, 150)
     # --------------------------- i ------------------------- #
-    first_file_entropy = get_entropy("./CD_TestFiles/a.txt")
+    first_file_entropy = get_entropy("../CD_TestFiles/a.txt")
     print("FileA entropy: ", first_file_entropy)
 
-    second_file_entropy = get_entropy("./CD_TestFiles/alice29.txt")
+    second_file_entropy = get_entropy("../CD_TestFiles/alice29.txt")
     print("FileB entropy: ", second_file_entropy)
 
     # Histogram for the first text file
-    create_histogram_for_file_chars("./CD_TestFiles/a.txt", 10)
+    create_histogram_for_file_chars("../CD_TestFiles/a.txt", 10)
 
     # Histogram for the second text file
-    create_histogram_for_file_chars("./CD_TestFiles/alice29.txt", 10)
+    create_histogram_for_file_chars("../CD_TestFiles/alice29.txt", 10)
 
     # -----------------------------------------------------------------------------------------------------------------------
     # -------------------------- ii ------------------------ #
