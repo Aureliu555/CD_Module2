@@ -1,5 +1,4 @@
-from crc import *
-import binascii
+from crc import Crc8, Crc16, Crc32, Crc64, CrcCalculator
 
 from numpy import byte
 
@@ -56,15 +55,8 @@ def crc_file_check(input, n_bits):
 
     if actual_checksum == expected_checksum:
         print("No error has been detected.")
+        return True
     else:
         print("Error detected.")
+        return False
 
-
-def main():
-    crc_file_check('output.txt', 32)
-    # print("Fst:", crc_file_compute("../CD_TestFiles/a.txt", 'output.txt', 32))
-    # print("Snd:", crc_file_compute("../CD_TestFiles/a.txt", 'output.txt', 32))
-
-
-if __name__ == '__main__':
-    main()

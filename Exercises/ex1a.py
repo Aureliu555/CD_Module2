@@ -1,14 +1,8 @@
 import random
-# import matplotlib.pyplot as plt
+from nltk import entropy
 
 # ------------------------------------------------------------------------------------ #
 # ---------------------------------- CAESAR ------------------------------------------ #
-# import numpy as np
-from nltk import entropy
-import random
-import matplotlib.pyplot as plt
-import numpy as np
-
 
 def shift_right_byte(byte, offset):
     if (byte + offset > 255):
