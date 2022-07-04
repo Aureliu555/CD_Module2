@@ -7,8 +7,8 @@ def main():
     n = 0
     while n < 3:
         data = str(arduino.readline(), 'utf-8')
-        print(data)
         if len(data) != 0:
+            print(data)
             n += 1
 
     arduino.close()
